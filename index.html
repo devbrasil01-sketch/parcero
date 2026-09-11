@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parcero — Parcerias Imobiliárias entre Corretores</title>
+  <meta name="description" content="Parcero conecta corretores que têm clientes a corretores que têm imóveis. Registre a indicação, acompanhe a parceria e feche mais negócios com segurança." />
+  <meta name="keywords" content="parceria imobiliária, corretor, proptech, imóveis, indicação, plataforma" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:      #102A43;
+      --navy-light:#1a3a58;
+      --teal:      #16B8A6;
+      --teal-dark: #0fa090;
+      --teal-soft: rgba(22,184,166,.1);
+      --sky:       #46A6FF;
+      --sky-soft:  rgba(70,166,255,.1);
+      --sand:      #F5F1E8;
+      --sand-dark: #EDE8DC;
+      --white:     #FFFFFF;
+      --gray-1:    #F8F9FA;
+      --gray-2:    #E9ECEF;
+      --gray-3:    #ADB5BD;
+      --gray-4:    #6C757D;
+      --text-body: #2D3748;
+      --radius:    12px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --shadow-md: 0 4px 16px rgba(16,42,67,.08);
+      --shadow-lg: 0 12px 40px rgba(16,42,67,.12);
+      --shadow-xl: 0 24px 64px rgba(16,42,67,.16);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: var(--white);
+      color: var(--text-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* NAVBAR */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(16,42,67,.06);
+      padding: 0 32px;
+      transition: box-shadow .3s;
+    }
+    .navbar__inner {
+      max-width: 1200px; margin: 0 auto;
+      height: 68px;
+      display: flex; align-items: center; justify-content: space-between; gap: 32px;
+    }
+    .navbar__logo {
+      display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+    }
+    .logo-mark {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--sky) 100%);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-mark svg { width: 18px; height: 18px; }
+    .logo-wordmark { font-size: 20px; font-weight: 800; color: var(--navy); letter-spacing: -.5px; }
+    .navbar__nav { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .navbar__nav a {
+      font-size: 14px; font-weight: 500; color: var(--gray-4);
+      padding: 6px 14px; border-radius: 8px; transition: color .2s, background .2s;
+    }
+    .navbar__nav a:hover { color: var(--navy); background: var(--sand); }
+    .navbar__actions { display: flex; align-items: center; gap: 12px; }
+    .btn-ghost {
+      font-size: 14px; font-weight: 600; color: var(--navy);
+      padding: 8px 18px; border-radius: var(--radius);
+      border: none; background: transparent; font-family: inherit; cursor: pointer;
+      transition: background .2s;
+    }
+    .btn-ghost:hover { background: var(--sand); }
+    .btn-primary {
+      font-size: 14px; font-weight: 700; color: var(--white);
+      padding: 10px 22px; border-radius: var(--radius);
+      background: var(--teal); border: none; cursor: pointer; font-family: inherit;
+      transition: background .2s, transform .15s, box-shadow .2s; letter-spacing: -.1px;
+    }
+    .btn-primary:hover { background: var(--teal-dark); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(22,184,166,.35); }
+
+    /* HERO */
+    .hero {
+      padding: 96px 32px 112px;
+      overflow: hidden; position: relative;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(ellipse, rgba(70,166,255,.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: -100px; left: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(ellipse, rgba(22,184,166,.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero__inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center;
+    }
+    .hero__badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px; border-radius: 100px;
+      background: var(--teal-soft); border: 1px solid rgba(22,184,166,.2);
+      font-size: 12px; font-weight: 700; color: var(--teal-dark);
+      letter-spacing: .3px; text-transform: uppercase;
+      margin-bottom: 28px;
+      animation: fadeDown .6s ease both;
+    }
+    .hero__badge::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--teal); animation: pulse 2s ease infinite;
+    }
+    .hero__title {
+      font-size: clamp(34px, 3.8vw, 50px); font-weight: 800; color: var(--navy);
+      line-height: 1.12; letter-spacing: -1.5px; margin-bottom: 22px;
+      animation: fadeDown .6s .1s ease both;
+    }
+    .hero__title em { font-style: normal; color: var(--teal); }
+    .hero__subtitle {
+      font-size: 18px; color: var(--gray-4); line-height: 1.65;
+      margin-bottom: 38px; max-width: 480px;
+      animation: fadeDown .6s .2s ease both;
+    }
+    .hero__actions {
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+      animation: fadeDown .6s .3s ease both;
+    }
+    .btn-hero-primary {
+      font-size: 15px; font-weight: 700; color: var(--white);
+      padding: 14px 28px; border-radius: var(--radius);
+      background: var(--teal); border: none; cursor: pointer; font-family: inherit;
+      transition: background .2s, transform .15s, box-shadow .2s; letter-spacing: -.2px;
+    }
+    .btn-hero-primary:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(22,184,166,.4); }
+    .btn-hero-secondary {
+      font-size: 15px; font-weight: 600; color: var(--navy);
+      padding: 14px 28px; border-radius: var(--radius);
+      background: transparent; border: 1.5px solid var(--gray-2);
+      cursor: pointer; font-family: inherit;
+      display: flex; align-items: center; gap: 8px;
+      transition: border-color .2s, background .2s, transform .15s;
+    }
+    .btn-hero-secondary:hover { border-color: var(--navy); background: var(--sand); transform: translateY(-1px); }
+    .btn-hero-secondary svg { transition: transform .2s; }
+    .btn-hero-secondary:hover svg { transform: translateX(3px); }
+    .hero__trust {
+      margin-top: 34px; display: flex; align-items: center; gap: 18px;
+      animation: fadeDown .6s .4s ease both;
+    }
+    .trust-item { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 500; color: var(--gray-4); }
+    .trust-item svg { color: var(--teal); flex-shrink: 0; }
+    .trust-div { width: 1px; height: 14px; background: var(--gray-2); }
+
+    /* PRODUCT PANEL */
+    .hero__panel { position: relative; animation: fadeLeft .8s .2s ease both; }
+    .panel-blob {
+      position: absolute; top: -40px; right: -40px;
+      width: 320px; height: 320px;
+      background: linear-gradient(135deg, rgba(70,166,255,.12), rgba(22,184,166,.12));
+      border-radius: 50%; filter: blur(40px);
+      pointer-events: none; z-index: 0;
+    }
+    .product-panel {
+      position: relative; z-index: 1;
+      background: var(--white); border-radius: var(--radius-xl);
+      border: 1px solid rgba(16,42,67,.08); box-shadow: var(--shadow-xl);
+      overflow: hidden;
+    }
+    .panel-header {
+      background: var(--navy); padding: 16px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .panel-header-logo { display: flex; align-items: center; gap: 8px; }
+    .panel-header-mark {
+      width: 22px; height: 22px;
+      background: linear-gradient(135deg, var(--teal), var(--sky));
+      border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .panel-header-mark svg { width: 12px; height: 12px; }
+    .panel-header-name { font-size: 13px; font-weight: 700; color: var(--white); letter-spacing: -.2px; }
+    .panel-tab {
+      font-size: 11px; font-weight: 600; color: rgba(255,255,255,.5);
+      background: rgba(255,255,255,.08); padding: 4px 10px; border-radius: 6px;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .panel-tab::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--teal); }
+
+    .panel-notif {
+      margin: 18px 18px 0;
+      background: linear-gradient(135deg, rgba(22,184,166,.07), rgba(70,166,255,.05));
+      border: 1px solid rgba(22,184,166,.2);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .notif-icon {
+      width: 32px; height: 32px; background: var(--teal); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .notif-icon svg { width: 15px; height: 15px; color: white; }
+    .notif-label { font-size: 11px; font-weight: 700; color: var(--teal-dark); letter-spacing: .4px; text-transform: uppercase; margin-bottom: 2px; }
+    .notif-title { font-size: 13px; font-weight: 600; color: var(--navy); }
+    .notif-time { font-size: 11px; color: var(--gray-3); margin-top: 2px; }
+
+    .panel-card {
+      margin: 14px 18px 18px;
+      border: 1px solid var(--gray-2); border-radius: var(--radius); overflow: hidden;
+    }
+    .card-head {
+      background: var(--sand); padding: 16px 18px;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+    }
+    .card-badge {
+      font-size: 10px; font-weight: 700; color: var(--gray-4); text-transform: uppercase;
+      letter-spacing: .5px; background: var(--sand-dark); padding: 3px 8px; border-radius: 5px;
+      display: inline-block; margin-bottom: 6px;
+    }
+    .card-title { font-size: 17px; font-weight: 800; color: var(--navy); letter-spacing: -.4px; }
+    .card-loc {
+      font-size: 12px; font-weight: 500; color: var(--gray-4); margin-top: 3px;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .card-loc svg { width: 11px; height: 11px; color: var(--sky); }
+    .card-price { font-size: 22px; font-weight: 800; color: var(--navy); letter-spacing: -.8px; white-space: nowrap; }
+    .card-price-lbl { font-size: 10px; font-weight: 600; color: var(--gray-3); text-transform: uppercase; letter-spacing: .3px; text-align: right; margin-bottom: 2px; }
+    .card-body { padding: 14px 18px; }
+    .card-features { display: flex; gap: 10px; margin-bottom: 12px; }
+    .feat-chip {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 600; color: var(--navy);
+      background: var(--gray-1); border: 1px solid var(--gray-2);
+      padding: 5px 10px; border-radius: 8px;
+    }
+    .feat-chip svg { width: 13px; height: 13px; color: var(--sky); }
+    .card-match {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 12px; font-weight: 600; color: var(--teal-dark);
+      background: var(--teal-soft); border: 1px solid rgba(22,184,166,.2);
+      padding: 8px 12px; border-radius: 8px; margin-bottom: 12px;
+    }
+    .card-match svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .match-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 2s ease infinite; flex-shrink: 0; }
+    .btn-card {
+      width: 100%; font-size: 13px; font-weight: 700; color: var(--white);
+      padding: 11px 0; border-radius: 8px; background: var(--teal);
+      border: none; cursor: pointer; font-family: inherit;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      transition: background .2s, box-shadow .2s;
+    }
+    .btn-card:hover { background: var(--teal-dark); box-shadow: 0 6px 18px rgba(22,184,166,.35); }
+    .btn-card svg { width: 14px; height: 14px; }
+    .panel-stats {
+      background: var(--gray-1); border-top: 1px solid var(--gray-2);
+      padding: 12px 18px; display: flex; justify-content: space-between;
+    }
+    .stat-val { font-size: 14px; font-weight: 800; color: var(--navy); letter-spacing: -.3px; text-align: center; }
+    .stat-lbl { font-size: 10px; font-weight: 500; color: var(--gray-3); text-transform: uppercase; letter-spacing: .3px; margin-top: 1px; text-align: center; }
+
+    /* Floating cards */
+    .float-card {
+      position: absolute;
+      background: var(--white); border: 1px solid rgba(16,42,67,.08);
+      border-radius: var(--radius); box-shadow: var(--shadow-lg);
+      padding: 10px 14px; display: flex; align-items: center; gap: 10px;
+      white-space: nowrap; z-index: 2;
+    }
+    .float-card--tl { top: -20px; left: -30px; animation: floatUp 3s ease-in-out infinite; }
+    .float-card--br { bottom: 60px; right: -30px; animation: floatUp 3s 1.5s ease-in-out infinite; }
+    .float-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .float-icon--teal { background: var(--teal-soft); }
+    .float-icon--sky { background: var(--sky-soft); }
+    .float-icon svg { width: 16px; height: 16px; }
+    .float-lbl { font-size: 10px; font-weight: 600; color: var(--gray-3); text-transform: uppercase; letter-spacing: .3px; }
+    .float-val { font-size: 13px; font-weight: 700; color: var(--navy); letter-spacing: -.2px; }
+
+    /* BENEFITS */
+    .benefits { background: var(--sand); padding: 96px 32px; }
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase;
+      color: var(--teal-dark); margin-bottom: 14px;
+    }
+    .section-tag span { width: 18px; height: 2px; background: var(--teal); display: inline-block; border-radius: 2px; }
+    .section-title { font-size: clamp(26px, 3vw, 38px); font-weight: 800; color: var(--navy); letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
+    .section-subtitle { font-size: 17px; color: var(--gray-4); max-width: 500px; margin: 0 auto; line-height: 1.6; }
+    .benefits__grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .benefit-card {
+      background: var(--white); border-radius: var(--radius);
+      border: 1px solid rgba(16,42,67,.06);
+      padding: 36px 30px;
+      position: relative; overflow: hidden;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+    }
+    .benefit-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--sky));
+      transform: scaleX(0); transform-origin: left; transition: transform .3s;
+    }
+    .benefit-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: rgba(22,184,166,.15); }
+    .benefit-card:hover::before { transform: scaleX(1); }
+    .benefit-step { font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--teal); margin-bottom: 18px; }
+    .benefit-icon {
+      width: 52px; height: 52px; border-radius: 14px; background: var(--sand);
+      display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+      transition: background .25s;
+    }
+    .benefit-card:hover .benefit-icon { background: var(--teal-soft); }
+    .benefit-icon svg { width: 24px; height: 24px; color: var(--navy); transition: color .25s; }
+    .benefit-card:hover .benefit-icon svg { color: var(--teal); }
+    .benefit-title { font-size: 19px; font-weight: 800; color: var(--navy); letter-spacing: -.4px; margin-bottom: 10px; }
+    .benefit-desc { font-size: 14px; color: var(--gray-4); line-height: 1.65; }
+    .benefit-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 700; color: var(--teal-dark);
+      margin-top: 20px; transition: gap .2s; cursor: pointer;
+    }
+    .benefit-link:hover { gap: 10px; }
+    .benefit-link svg { width: 14px; height: 14px; }
+
+    /* HOW IT WORKS */
+    .how-it-works { padding: 96px 32px; background: var(--white); }
+    .how__inner { max-width: 1200px; margin: 0 auto; }
+    .steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; margin-top: 60px; position: relative;
+    }
+    .steps::before {
+      content: ''; position: absolute;
+      top: 32px; left: calc(12.5% + 16px); right: calc(12.5% + 16px);
+      height: 1px;
+      background: linear-gradient(90deg, var(--teal), var(--sky));
+      z-index: 0;
+    }
+    .step { text-align: center; padding: 0 20px; position: relative; z-index: 1; }
+    .step-num {
+      width: 64px; height: 64px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 18px;
+      font-size: 20px; font-weight: 800;
+    }
+    .step:nth-child(1) .step-num { background: var(--teal); color: var(--white); }
+    .step:nth-child(2) .step-num { background: var(--white); color: var(--navy); border: 2px solid var(--gray-2); }
+    .step:nth-child(3) .step-num { background: var(--white); color: var(--navy); border: 2px solid var(--gray-2); }
+    .step:nth-child(4) .step-num { background: var(--white); color: var(--navy); border: 2px solid var(--gray-2); }
+    .step-title { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 8px; letter-spacing: -.2px; }
+    .step-desc { font-size: 13px; color: var(--gray-4); line-height: 1.6; }
+
+    /* CTA BANNER */
+    .cta-banner { padding: 72px 32px; background: var(--sand); }
+    .cta-inner {
+      max-width: 1200px; margin: 0 auto;
+      background: var(--navy); border-radius: var(--radius-xl);
+      padding: 72px 72px;
+      display: flex; align-items: center; justify-content: space-between; gap: 48px;
+      position: relative; overflow: hidden;
+    }
+    .cta-inner::before {
+      content: ''; position: absolute; top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(ellipse, rgba(22,184,166,.18) 0%, transparent 65%);
+    }
+    .cta-inner::after {
+      content: ''; position: absolute; bottom: -80px; left: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(ellipse, rgba(70,166,255,.12) 0%, transparent 65%);
+    }
+    .cta-content { position: relative; z-index: 1; }
+    .cta-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .cta-eyebrow::before { content: ''; display: inline-block; width: 16px; height: 2px; background: var(--teal); border-radius: 2px; }
+    .cta-title { font-size: clamp(24px, 3vw, 36px); font-weight: 800; color: var(--white); letter-spacing: -1px; line-height: 1.15; margin-bottom: 10px; }
+    .cta-desc { font-size: 16px; color: rgba(255,255,255,.5); line-height: 1.55; max-width: 440px; }
+    .cta-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; position: relative; z-index: 1; flex-shrink: 0; }
+    .btn-cta-primary {
+      font-size: 15px; font-weight: 700; color: var(--navy);
+      padding: 16px 32px; border-radius: var(--radius);
+      background: var(--white); border: none; cursor: pointer; font-family: inherit;
+      white-space: nowrap; transition: transform .15s, box-shadow .2s;
+    }
+    .btn-cta-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,.25); }
+    .btn-cta-secondary {
+      font-size: 14px; font-weight: 600; color: rgba(255,255,255,.6);
+      cursor: pointer; padding: 8px 16px; border-radius: var(--radius);
+      display: flex; align-items: center; gap: 8px;
+      transition: color .2s, background .2s;
+      border: none; background: transparent; font-family: inherit; white-space: nowrap;
+    }
+    .btn-cta-secondary:hover { color: var(--white); background: rgba(255,255,255,.08); }
+    .btn-cta-secondary svg { width: 14px; height: 14px; }
+    .cta-guarantee { font-size: 11px; color: rgba(255,255,255,.28); text-align: right; }
+
+    /* FOOTER */
+    footer { background: var(--navy); padding: 56px 32px 32px; border-top: 1px solid rgba(255,255,255,.06); }
+    .footer__inner { max-width: 1200px; margin: 0 auto; }
+    .footer__top {
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 48px;
+      padding-bottom: 44px; border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .footer-logo-mark {
+      width: 30px; height: 30px;
+      background: linear-gradient(135deg, var(--teal), var(--sky));
+      border-radius: 7px; display: flex; align-items: center; justify-content: center;
+    }
+    .footer-logo-mark svg { width: 15px; height: 15px; }
+    .footer-logo-name { font-size: 18px; font-weight: 800; color: var(--white); letter-spacing: -.4px; }
+    .footer-tagline { font-size: 13px; color: rgba(255,255,255,.4); max-width: 250px; line-height: 1.6; }
+    .footer__links { display: flex; gap: 56px; }
+    .footer-col-title { font-size: 11px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: 14px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { font-size: 13px; color: rgba(255,255,255,.5); transition: color .2s; }
+    .footer-col ul a:hover { color: var(--white); }
+    .footer__bottom { margin-top: 28px; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,.22); }
+    .footer-badges { display: flex; gap: 10px; }
+    .footer-badge { font-size: 11px; font-weight: 600; color: rgba(255,255,255,.32); background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.07); padding: 4px 10px; border-radius: 6px; }
+
+    /* ANIMATIONS */
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeLeft { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .6; transform: scale(.8); } }
+    @keyframes floatUp { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: .1s; }
+    .reveal-d2 { transition-delay: .2s; }
+    .reveal-d3 { transition-delay: .3s; }
+    .reveal-d4 { transition-delay: .4s; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar" id="navbar">
+  <div class="navbar__inner">
+    <a href="#" class="navbar__logo" id="nav-logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 18 18" fill="none">
+          <path d="M9 3L15 7.5V14.5H12V10.5H6V14.5H3V7.5L9 3Z" fill="white" stroke="white" stroke-width=".5" stroke-linejoin="round"/>
+          <circle cx="9" cy="8.5" r="1.5" fill="rgba(16,42,67,.35)"/>
+        </svg>
+      </div>
+      <span class="logo-wordmark">parcero</span>
+    </a>
+    <ul class="navbar__nav" role="navigation" aria-label="Menu principal">
+      <li><a href="#como-funciona" id="nav-link-como">Como funciona</a></li>
+      <li><a href="#beneficios" id="nav-link-ben">Benefícios</a></li>
+      <li><a href="#para-corretores" id="nav-link-cor">Para corretores</a></li>
+    </ul>
+    <div class="navbar__actions">
+      <button class="btn-ghost" id="btn-nav-entrar">Entrar</button>
+      <button class="btn-primary" id="btn-nav-cta">Quero ser membro fundador</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero__inner">
+    <!-- Copy -->
+    <div>
+      <div class="hero__badge">Plataforma de parcerias imobiliárias</div>
+      <h1 class="hero__title">Parcero conecta <em>quem tem o cliente</em> a quem tem o imóvel.</h1>
+      <p class="hero__subtitle">Encontre parceiros confiáveis, registre a indicação e acompanhe cada oportunidade até o fechamento.</p>
+      <div class="hero__actions">
+        <button class="btn-hero-primary" id="btn-hero-primary">Quero ser membro fundador</button>
+        <button class="btn-hero-secondary" id="btn-hero-secondary">
+          Conhecer a plataforma
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/>
+          </svg>
+        </button>
+      </div>
+      <div class="hero__trust">
+        <div class="trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.745 3.745 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.745 3.745 0 0 1 3.296-1.043A3.745 3.745 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.745 3.745 0 0 1 3.296 1.043 3.745 3.745 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"/>
+          </svg>
+          Parceria registrada
+        </div>
+        <div class="trust-div"></div>
+        <div class="trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/>
+          </svg>
+          Sem conflito de interesse
+        </div>
+        <div class="trust-div"></div>
+        <div class="trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"/>
+          </svg>
+          Corretores verificados
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Panel -->
+    <div class="hero__panel" id="product-panel">
+      <div style="position:relative;">
+        <div class="panel-blob"></div>
+
+        <!-- Float top-left -->
+        <div class="float-card float-card--tl">
+          <div class="float-icon float-icon--sky">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#46A6FF" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"/>
+            </svg>
+          </div>
+          <div>
+            <div class="float-lbl">Oportunidades</div>
+            <div class="float-val">+38 esta semana</div>
+          </div>
+        </div>
+
+        <!-- Main panel -->
+        <div class="product-panel">
+          <!-- Topbar -->
+          <div class="panel-header">
+            <div class="panel-header-logo">
+              <div class="panel-header-mark">
+                <svg viewBox="0 0 18 18" fill="none">
+                  <path d="M9 3L15 7.5V14.5H12V10.5H6V14.5H3V7.5L9 3Z" fill="white" stroke="white" stroke-width=".5" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="panel-header-name">parcero</span>
+            </div>
+            <div class="panel-tab">Oportunidades</div>
+          </div>
+
+          <!-- Notification -->
+          <div class="panel-notif">
+            <div class="notif-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"/>
+              </svg>
+            </div>
+            <div>
+              <div class="notif-label">Novo encaixe encontrado</div>
+              <div class="notif-title">Imóvel compatível com a demanda do seu cliente</div>
+              <div class="notif-time">Agora mesmo</div>
+            </div>
+          </div>
+
+          <!-- Property card -->
+          <div class="panel-card">
+            <div class="card-head">
+              <div>
+                <div class="card-badge">Apartamento</div>
+                <div class="card-title">Itapetininga / SP</div>
+                <div class="card-loc">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/>
+                  </svg>
+                  São Paulo, Brasil
+                </div>
+              </div>
+              <div>
+                <div class="card-price-lbl">Valor</div>
+                <div class="card-price">R$ 420.000</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="card-features">
+                <div class="feat-chip">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/>
+                  </svg>
+                  3 quartos
+                </div>
+                <div class="feat-chip">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/>
+                  </svg>
+                  2 vagas
+                </div>
+              </div>
+              <div class="card-match">
+                <div class="match-dot"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.745 3.745 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.745 3.745 0 0 1 3.296-1.043A3.745 3.745 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.745 3.745 0 0 1 3.296 1.043 3.745 3.745 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"/>
+                </svg>
+                Compatível com sua demanda
+              </div>
+              <button class="btn-card" id="btn-panel-ver">
+                Ver oportunidade
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Mini stats -->
+          <div class="panel-stats">
+            <div>
+              <div class="stat-val">14</div>
+              <div class="stat-lbl">Parcerias ativas</div>
+            </div>
+            <div>
+              <div class="stat-val">3</div>
+              <div class="stat-lbl">Em negociação</div>
+            </div>
+            <div>
+              <div class="stat-val">R$ 2,1M</div>
+              <div class="stat-lbl">Volume captado</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Float bottom-right -->
+        <div class="float-card float-card--br">
+          <div class="float-icon float-icon--teal">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#16B8A6" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="float-lbl">Parceiro encontrado</div>
+            <div class="float-val">Novo match disponível</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits" id="beneficios">
+  <div class="section-header reveal">
+    <div class="section-tag"><span></span>Para corretores</div>
+    <h2 class="section-title">Tudo que você precisa para fechar mais</h2>
+    <p class="section-subtitle">Menos tempo procurando, mais tempo negociando. Parcero organiza cada etapa da parceria.</p>
+  </div>
+  <div class="benefits__grid">
+    <div class="benefit-card reveal reveal-d1">
+      <div class="benefit-step">Passo 01</div>
+      <div class="benefit-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"/>
+        </svg>
+      </div>
+      <h3 class="benefit-title">Encontre o parceiro certo</h3>
+      <p class="benefit-desc">Conecte-se com corretores que têm o imóvel que o seu cliente procura. Parcero analisa as demandas e sugere os melhores encaixes automaticamente.</p>
+      <div class="benefit-link">Saiba mais <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg></div>
+    </div>
+    <div class="benefit-card reveal reveal-d2">
+      <div class="benefit-step">Passo 02</div>
+      <div class="benefit-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/>
+        </svg>
+      </div>
+      <h3 class="benefit-title">Registre a parceria antes da visita</h3>
+      <p class="benefit-desc">Formalize o acordo com um clique antes de qualquer visita. Seu registro fica na plataforma, protegendo ambas as partes desde o início da negociação.</p>
+      <div class="benefit-link">Saiba mais <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg></div>
+    </div>
+    <div class="benefit-card reveal reveal-d3">
+      <div class="benefit-step">Passo 03</div>
+      <div class="benefit-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/>
+        </svg>
+      </div>
+      <h3 class="benefit-title">Acompanhe até o fechamento</h3>
+      <p class="benefit-desc">Veja o status de cada oportunidade em tempo real. Da indicação à comissão, tudo fica visível e organizado em um único painel de controle.</p>
+      <div class="benefit-link">Saiba mais <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works" id="como-funciona">
+  <div class="how__inner">
+    <div class="section-header reveal">
+      <div class="section-tag"><span></span>Como funciona</div>
+      <h2 class="section-title">Da demanda ao fechamento em 4 etapas</h2>
+      <p class="section-subtitle">Simples e direto. Parcero foi desenhado para o dia a dia real do corretor brasileiro.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal reveal-d1">
+        <div class="step-num">1</div>
+        <div class="step-title">Cadastre sua demanda</div>
+        <div class="step-desc">Informe o perfil do cliente e o tipo de imóvel que ele está buscando.</div>
+      </div>
+      <div class="step reveal reveal-d2">
+        <div class="step-num">2</div>
+        <div class="step-title">Receba encaixes</div>
+        <div class="step-desc">A plataforma sugere imóveis e corretores compatíveis com a demanda.</div>
+      </div>
+      <div class="step reveal reveal-d3">
+        <div class="step-num">3</div>
+        <div class="step-title">Registre a parceria</div>
+        <div class="step-desc">Formalize o acordo antes da visita, com ambas as partes cientes.</div>
+      </div>
+      <div class="step reveal reveal-d4">
+        <div class="step-num">4</div>
+        <div class="step-title">Feche e receba</div>
+        <div class="step-desc">Acompanhe o processo e receba sua comissão com total transparência.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner" id="para-corretores">
+  <div class="cta-inner reveal">
+    <div class="cta-content">
+      <div class="cta-eyebrow">Acesso antecipado</div>
+      <h2 class="cta-title">Seja dos primeiros corretores<br>na plataforma.</h2>
+      <p class="cta-desc">Os membros fundadores têm acesso prioritário, condições exclusivas e voz ativa na construção do Parcero.</p>
+    </div>
+    <div class="cta-actions">
+      <button class="btn-cta-primary" id="btn-cta-primary">Quero ser membro fundador</button>
+      <button class="btn-cta-secondary" id="btn-cta-secondary">
+        Conhecer a plataforma
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/>
+        </svg>
+      </button>
+      <div class="cta-guarantee">Sem cartão de crédito · Sem compromisso</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer__inner">
+    <div class="footer__top">
+      <div>
+        <div class="footer-logo">
+          <div class="footer-logo-mark">
+            <svg viewBox="0 0 18 18" fill="none">
+              <path d="M9 3L15 7.5V14.5H12V10.5H6V14.5H3V7.5L9 3Z" fill="white" stroke="white" stroke-width=".5" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="footer-logo-name">parcero</span>
+        </div>
+        <p class="footer-tagline">A plataforma de parcerias imobiliárias para corretores brasileiros.</p>
+      </div>
+      <div class="footer__links">
+        <div class="footer-col">
+          <div class="footer-col-title">Produto</div>
+          <ul>
+            <li><a href="#como-funciona">Como funciona</a></li>
+            <li><a href="#beneficios">Benefícios</a></li>
+            <li><a href="#para-corretores">Para corretores</a></li>
+            <li><a href="#">Preços</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Empresa</div>
+          <ul>
+            <li><a href="#">Sobre o Parcero</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contato</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal</div>
+          <ul>
+            <li><a href="#">Termos de uso</a></li>
+            <li><a href="#">Privacidade</a></li>
+            <li><a href="#">LGPD</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="footer-copy">© 2025 Parcero. Todos os direitos reservados.</div>
+      <div class="footer-badges">
+        <div class="footer-badge">CRECI Friendly</div>
+        <div class="footer-badge">LGPD Compliant</div>
+        <div class="footer-badge">Feito no Brasil 🇧🇷</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => io.observe(el));
+
+  // Smooth scroll anchors
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const t = document.querySelector(link.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // CTA to para-corretores
+  ['btn-nav-cta', 'btn-hero-primary', 'btn-cta-primary'].forEach(id => {
+    document.getElementById(id)?.addEventListener('click', () => {
+      document.getElementById('para-corretores')?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Secondary to beneficios/como
+  document.getElementById('btn-hero-secondary')?.addEventListener('click', () => {
+    document.getElementById('beneficios')?.scrollIntoView({ behavior: 'smooth' });
+  });
+  document.getElementById('btn-cta-secondary')?.addEventListener('click', () => {
+    document.getElementById('como-funciona')?.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Navbar shadow on scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').style.boxShadow =
+      window.scrollY > 10 ? '0 4px 24px rgba(16,42,67,.08)' : 'none';
+  });
+</script>
+</body>
+</html>
