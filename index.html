@@ -615,16 +615,147 @@
     }
     .form-global-error.show { display: block; }
 
-    /* Responsive mobile */
-    @media (max-width: 520px) {
+    /* ─── HAMBURGER BUTTON ─────────────────────────────────── */
+    .navbar__hamburger {
+      display: none;
+      flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+      width: 40px; height: 40px; border: none; background: transparent;
+      cursor: pointer; border-radius: 8px; transition: background .2s; flex-shrink: 0;
+    }
+    .navbar__hamburger:hover { background: var(--sand); }
+    .navbar__hamburger span {
+      display: block; width: 22px; height: 2px; background: var(--navy);
+      border-radius: 2px; transition: transform .25s, opacity .2s;
+    }
+    .navbar__hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .navbar__hamburger.open span:nth-child(2) { opacity: 0; }
+    .navbar__hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── MOBILE DRAWER ────────────────────────────────────── */
+    .navbar__drawer {
+      display: none;
+      position: fixed; inset: 68px 0 0 0; z-index: 99;
+      background: rgba(255,255,255,.97);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      flex-direction: column; gap: 0;
+      padding: 12px 20px 32px;
+      border-top: 1px solid var(--gray-2);
+      transform: translateY(-12px); opacity: 0;
+      transition: transform .25s ease, opacity .2s ease;
+      pointer-events: none;
+    }
+    .navbar__drawer.open {
+      transform: translateY(0); opacity: 1; pointer-events: all;
+    }
+    .navbar__drawer a {
+      display: block; padding: 14px 8px;
+      font-size: 17px; font-weight: 600; color: var(--navy);
+      border-bottom: 1px solid var(--gray-2);
+      transition: color .2s;
+    }
+    .navbar__drawer a:hover { color: var(--teal); }
+    .navbar__drawer .drawer-cta {
+      margin-top: 20px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .navbar__drawer .btn-ghost {
+      width: 100%; text-align: center; padding: 14px;
+      border: 1.5px solid var(--gray-2); border-radius: var(--radius);
+    }
+    .navbar__drawer .btn-primary {
+      width: 100%; text-align: center; padding: 14px;
+      font-size: 15px;
+    }
+
+    /* ─── RESPONSIVE: TABLET (max 900px) ──────────────────── */
+    @media (max-width: 900px) {
+      .hero__inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero__panel { display: none; }
+      .hero { padding: 72px 24px 88px; }
+      .hero__subtitle { font-size: 17px; }
+
+      .benefits__grid { grid-template-columns: 1fr 1fr; }
+      .benefits { padding: 72px 24px; }
+
+      .steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .steps::before { display: none; }
+      .how-it-works { padding: 72px 24px; }
+
+      .cta-inner {
+        flex-direction: column; align-items: flex-start; gap: 36px;
+        padding: 48px 40px;
+      }
+      .cta-actions { align-items: flex-start; width: 100%; }
+      .btn-cta-primary { width: 100%; text-align: center; }
+
+      .footer__top { flex-direction: column; gap: 32px; }
+      .footer__links { gap: 32px; flex-wrap: wrap; }
+    }
+
+    /* ─── RESPONSIVE: MOBILE (max 640px) ──────────────────── */
+    @media (max-width: 640px) {
+      /* Navbar */
+      .navbar { padding: 0 20px; }
+      .navbar__nav { display: none; }
+      .navbar__actions { display: none; }
+      .navbar__hamburger { display: flex; }
+      .navbar__drawer { display: flex; }
+
+      /* Hero */
+      .hero { padding: 56px 20px 72px; }
+      .hero__badge { font-size: 11px; padding: 5px 12px; margin-bottom: 20px; }
+      .hero__title { font-size: clamp(30px, 8vw, 40px); letter-spacing: -1px; }
+      .hero__subtitle { font-size: 16px; margin-bottom: 28px; }
+      .hero__actions { flex-direction: column; align-items: stretch; gap: 10px; }
+      .btn-hero-primary { padding: 15px 24px; font-size: 15px; text-align: center; }
+      .btn-hero-secondary { padding: 14px 24px; justify-content: center; }
+      .hero__trust { flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+      .trust-div { display: none; }
+
+      /* Sections */
+      .section-header { margin-bottom: 40px; }
+      .section-subtitle { font-size: 15px; }
+
+      /* Benefits */
+      .benefits { padding: 56px 20px; }
+      .benefits__grid { grid-template-columns: 1fr; gap: 16px; }
+      .benefit-card { padding: 28px 22px; }
+
+      /* How it works */
+      .how-it-works { padding: 56px 20px; }
+      .steps { grid-template-columns: 1fr; gap: 32px; margin-top: 40px; }
+      .step { text-align: left; display: flex; align-items: flex-start; gap: 20px; padding: 0; }
+      .step-num { margin: 0; flex-shrink: 0; width: 48px; height: 48px; font-size: 16px; }
+      .step-text { flex: 1; }
+      .step-title { font-size: 15px; margin-bottom: 4px; }
+      .step-desc { font-size: 13px; }
+
+      /* CTA Banner */
+      .cta-banner { padding: 40px 20px; }
+      .cta-inner { padding: 40px 24px; border-radius: var(--radius-lg); gap: 28px; }
+      .cta-desc { font-size: 14px; }
+      .btn-cta-primary { padding: 14px 24px; font-size: 14px; }
+      .cta-guarantee { text-align: left; }
+
+      /* Footer */
+      footer { padding: 40px 20px 28px; }
+      .footer__top { gap: 28px; }
+      .footer__links { flex-direction: column; gap: 24px; }
+      .footer__bottom { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .footer-badges { flex-wrap: wrap; }
+
+      /* Modal */
       .modal { border-radius: 20px 20px 0 0; max-height: 96vh; }
       .modal-overlay { align-items: flex-end; padding: 0; }
       .modal__head { padding: 20px 20px 16px; }
       .modal__body { padding: 20px 20px 28px; }
+      .modal__title { font-size: 18px; }
       .form-grid { grid-template-columns: 1fr; }
       .form-grid .span-2 { grid-column: 1; }
       .form-check { grid-column: 1; }
       .form-divider { grid-column: 1; }
+      .btn-modal-submit { font-size: 14px; }
     }
   </style>
 </head>
@@ -645,8 +776,23 @@
       <button class="btn-ghost" id="btn-nav-entrar">Entrar</button>
       <button class="btn-primary" id="btn-nav-cta">Turma Fundadora</button>
     </div>
+    <!-- Hamburger (mobile only) -->
+    <button class="navbar__hamburger" id="navbar-hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="navbar-drawer">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+
+<!-- Mobile Drawer (menu) -->
+<nav class="navbar__drawer" id="navbar-drawer" aria-label="Menu mobile">
+  <a href="#como-funciona" class="drawer-link">Como funciona</a>
+  <a href="#beneficios" class="drawer-link">Benefícios</a>
+  <a href="#para-corretores" class="drawer-link">Para corretores</a>
+  <div class="drawer-cta">
+    <button class="btn-ghost" id="btn-drawer-entrar">Entrar</button>
+    <button class="btn-primary" id="btn-drawer-cta">Turma Fundadora</button>
+  </div>
+</nav>
 
 <!-- HERO -->
 <section class="hero" id="hero">
@@ -872,23 +1018,31 @@
     <div class="steps">
       <div class="step reveal reveal-d1">
         <div class="step-num">1</div>
-        <div class="step-title">Cadastre sua demanda</div>
-        <div class="step-desc">Informe o perfil do cliente e o tipo de imóvel que ele está buscando.</div>
+        <div class="step-text">
+          <div class="step-title">Cadastre sua demanda</div>
+          <div class="step-desc">Informe o perfil do cliente e o tipo de im\u00f3vel que ele est\u00e1 buscando.</div>
+        </div>
       </div>
       <div class="step reveal reveal-d2">
         <div class="step-num">2</div>
-        <div class="step-title">Receba encaixes</div>
-        <div class="step-desc">A plataforma sugere imóveis e corretores compatíveis com a demanda.</div>
+        <div class="step-text">
+          <div class="step-title">Receba encaixes</div>
+          <div class="step-desc">A plataforma sugere im\u00f3veis e corretores compat\u00edveis com a demanda.</div>
+        </div>
       </div>
       <div class="step reveal reveal-d3">
         <div class="step-num">3</div>
-        <div class="step-title">Registre a parceria</div>
-        <div class="step-desc">Formalize o acordo antes da visita, com ambas as partes cientes.</div>
+        <div class="step-text">
+          <div class="step-title">Registre a parceria</div>
+          <div class="step-desc">Formalize o acordo antes da visita, com ambas as partes cientes.</div>
+        </div>
       </div>
       <div class="step reveal reveal-d4">
         <div class="step-num">4</div>
-        <div class="step-title">Feche e receba</div>
-        <div class="step-desc">Acompanhe o processo e receba sua comissão com total transparência.</div>
+        <div class="step-text">
+          <div class="step-title">Feche e receba</div>
+          <div class="step-desc">Acompanhe o processo e receba sua comiss\u00e3o com total transpar\u00eancia.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1354,6 +1508,47 @@
   window.addEventListener('scroll', () => {
     document.getElementById('navbar').style.boxShadow =
       window.scrollY > 10 ? '0 4px 24px rgba(16,42,67,.08)' : 'none';
+  });
+
+  // ─── Mobile Hamburger / Drawer ───────────────────────────────
+  const hamburger = document.getElementById('navbar-hamburger');
+  const drawer    = document.getElementById('navbar-drawer');
+
+  function openDrawer() {
+    hamburger.classList.add('open');
+    drawer.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer() {
+    hamburger.classList.remove('open');
+    drawer.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  function toggleDrawer() {
+    drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+  }
+
+  hamburger?.addEventListener('click', toggleDrawer);
+
+  // Fechar ao clicar em links do drawer
+  drawer?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      closeDrawer();
+    });
+  });
+
+  // Botão "Turma Fundadora" no drawer -> abre modal
+  document.getElementById('btn-drawer-cta')?.addEventListener('click', () => {
+    closeDrawer();
+    setTimeout(openModal, 180);
+    _lastOpener = document.getElementById('btn-drawer-cta');
+  });
+
+  // Fechar drawer no Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer?.classList.contains('open')) closeDrawer();
   });
 </script>
 </body>
